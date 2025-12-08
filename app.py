@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template_string, render_template, redirect, session, url_for
+from flask import Flask, request, jsonify, render_template, redirect, session, url_for
 from flask_cors import CORS
 import pandas as pd
 from catboost import CatBoostRegressor
@@ -72,7 +72,7 @@ expected_columns = [
 
 
 # ---------------------------------------------------
-# 🔥 ROOT → /tahmin-paneli yönlendirmesi
+# 🔥 ROOT → /tahmin-paneli'ye yönlendir
 # ---------------------------------------------------
 @app.get("/")
 def redirect_to_panel():
@@ -80,12 +80,11 @@ def redirect_to_panel():
 
 
 # ---------------------------------------------------
-# 🔥 Tahmin Paneli URL → index.html
+# 🔥 Tahmin Paneli → templates/index.html
 # ---------------------------------------------------
 @app.get("/tahmin-paneli")
 def tahmin_page():
-    with open("index.html", "r", encoding="utf-8") as f:
-        return render_template_string(f.read())
+    return render_template("index.html")   # ❗ Artık open() yok!
 
 
 # ---------------------------------------------------
@@ -97,7 +96,6 @@ def admin_login():
         username = request.form.get("username")
         password = request.form.get("password")
 
-        # Sabit giriş bilgisi
         if username == "admin" and password == "ferhat123":
             session["admin_logged"] = True
             return redirect("/admin")
@@ -189,7 +187,7 @@ def admin_records():
                 "Model": r.Model,
                 "Kasa_tipi": r.Kasa_tipi,
                 "Yakit_tipi": r.Yakit_tipi,
-                "Vites": r.VVites,
+                "Vites": r.Vites,     # ❗ burada hata düzeltilmiş
                 "Renk": r.Renk,
                 "Kimden": r.Kimden,
                 "kilometre": r.kilometre,
