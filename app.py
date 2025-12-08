@@ -72,7 +72,7 @@ expected_columns = [
 
 
 # ---------------------------------------------------
-# 🔥 ROOT → /tahmin-paneli'ye yönlendir
+# 🔥 ROOT → Tahmin Paneline yönlendir
 # ---------------------------------------------------
 @app.get("/")
 def redirect_to_panel():
@@ -80,15 +80,15 @@ def redirect_to_panel():
 
 
 # ---------------------------------------------------
-# 🔥 Tahmin Paneli → templates/index.html
+# 🔥 Tahmin Paneli
 # ---------------------------------------------------
 @app.get("/tahmin-paneli")
 def tahmin_page():
-    return render_template("index.html")   # ❗ Artık open() yok!
+    return render_template("index.html")   # templates/index.html
 
 
 # ---------------------------------------------------
-# 🔥 ADMIN LOGIN SAYFASI
+# 🔥 ADMIN LOGIN
 # ---------------------------------------------------
 @app.route("/admin-login", methods=["GET", "POST"])
 def admin_login():
@@ -140,16 +140,13 @@ def predict():
             Vites=data["Vites"],
             Renk=data["Renk"],
             Kimden=data["Kimden"],
-
             kilometre=data["kilometre"],
             Motor_gucu=data["Motor_gucu"],
             Yas=data["Yas"],
             Hasar_Kaydi=data["Hasar_Kaydi"],
             km_per_age=data["km_per_age"],
             model_yili=data["model_yili"],
-
             tahmin=tahmin,
-
             ad=data.get("ad", ""),
             email=data.get("email", ""),
             tel=data.get("tel", ""),
@@ -167,7 +164,7 @@ def predict():
 
 
 # ---------------------------------------------------
-# 🔥 ADMIN API — TÜM KAYITLAR
+# 🔥 ADMIN — KAYIT LİSTELE
 # ---------------------------------------------------
 @app.get("/admin/records")
 def admin_records():
@@ -182,12 +179,11 @@ def admin_records():
             "id": r.id,
             "submittedAt": r.created_at.strftime("%d.%m.%Y %H:%M"),
             "tahmin": r.tahmin,
-
             "features": {
                 "Model": r.Model,
                 "Kasa_tipi": r.Kasa_tipi,
                 "Yakit_tipi": r.Yakit_tipi,
-                "Vites": r.Vites,     # ❗ burada hata düzeltilmiş
+                "Vites": r.Vites,
                 "Renk": r.Renk,
                 "Kimden": r.Kimden,
                 "kilometre": r.kilometre,
@@ -195,7 +191,6 @@ def admin_records():
                 "Yas": r.Yas,
                 "Hasar_Kaydi": r.Hasar_Kaydi,
             },
-
             "contact": {
                 "ad": r.ad,
                 "email": r.email,
