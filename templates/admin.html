@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Paneli – Araç Fiyat Tahminleri</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #020617;
+      --card-bg: #0b1120;
+      --accent: #4f46e5;
+      --accent-soft: rgba(79, 70, 229, 0.18);
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --border: #1f2937;
+      --danger: #ef4444;
+      --success: #22c55e;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #111827 0, #020617 45%, #000 100%);
+      color: var(--text);
+      padding: 24px 16px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .layout {
+      width: 100%;
+      max-width: 1200px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.7fr) minmax(0, 1.3fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.88));
+      border-radius: 20px;
+      border: 1px solid rgba(148, 163, 184, 0.20);
+      padding: 18px 18px 20px;
+      box-shadow:
+        0 22px 50px rgba(15, 23, 42, 0.9),
+        0 0 0 1px rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(14px);
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .title {
+      font-size: 18px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .title span.icon {
+      font-size: 20px;
+    }
+
+    .subtitle {
+      font-size: 12px;
+      color: var(--muted);
+      max-width: 480px;
+    }
+
+    .badge {
+      font-size: 11px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: radial-gradient(circle at 0 0, rgba(34, 197, 94, 0.16), transparent 55%);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--success);
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.25);
+    }
+
+    .filters {
+      margin-top: 4px;
+      margin-bottom: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: flex-end;
+    }
+
+    .filter-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 11px;
+      color: var(--muted);
+      min-width: 120px;
+    }
+
+    .filter-label {
+      font-size: 11px;
+    }
+
+    .input, .select {
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background-color: #020617;
+      color: var(--text);
+      font-size: 12px;
+      padding: 7px 9px;
+      outline: none;
+      transition: border 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+    }
+
+    .input:focus, .select:focus {
+      border-color: var(--accent);
+      box-shadow:
+        0 0 0 1px rgba(79, 70, 229, 0.3),
+        0 0 0 5px rgba(79, 70, 229, 0.15);
+      background-color: #020617;
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: none;
+      font-size: 12px;
+      padding: 8px 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.08s ease, box-shadow 0.08s ease, filter 0.08s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      color: #f9fafb;
+      box-shadow:
+        0 12px 26px rgba(79, 70, 229, 0.55),
+        0 0 0 1px rgba(129, 140, 248, 0.35);
+    }
+
+    .btn-secondary {
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+      border: 1px solid rgba(148, 163, 184, 0.65);
+    }
+
+    .btn-danger {
+      background: rgba(220, 38, 38, 0.12);
+      color: #fecaca;
+      border: 1px solid rgba(248, 113, 113, 0.7);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    .table-wrapper {
+      margin-top: 8px;
+      border-radius: 12px;
+      border: 1px solid rgba(31, 41, 55, 0.95);
+      overflow: hidden;
+      background: rgba(15, 23, 42, 0.98);
+    }
+
+    .table-head {
+      padding: 7px 10px;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.95);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .table-head .label {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 10px;
+    }
+
+    .table-head .count {
+      font-size: 11px;
+      color: #e5e7eb;
+    }
+
+    .table-scroll {
+      max-height: 360px;
+      overflow: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    thead {
+      position: sticky;
+      top: 0;
+      background: #020617;
+      z-index: 1;
+    }
+
+    th, td {
+      padding: 7px 8px;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.85);
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    th {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--muted);
+    }
+
+    tbody tr:nth-child(even) {
+      background: rgba(15, 23, 42, 0.96);
+    }
+
+    tbody tr:hover {
+      background: rgba(37, 99, 235, 0.28);
+      cursor: pointer;
+    }
+
+    .pill-mini {
+      font-size: 11px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.9);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .pill-mini span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #38bdf8;
+    }
+
+    .link-btn {
+      font-size: 11px;
+      color: #a5b4fc;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      padding: 0;
+    }
+
+    .link-btn:hover {
+      text-decoration: underline;
+    }
+
+    .small-muted {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    /* Sağ panel - detay kartı */
+
+    .detail-header {
+      margin-bottom: 10px;
+    }
+
+    .detail-title {
+      font-size: 15px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .detail-sub {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .detail-price {
+      font-size: 24px;
+      font-weight: 700;
+      margin-top: 10px;
+    }
+
+    .detail-meta {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .detail-section-title {
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 14px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .detail-section-title span.bar {
+      width: 5px;
+      height: 14px;
+      border-radius: 999px;
+      background: linear-gradient(to bottom, #4f46e5, #22c55e);
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px 10px;
+      font-size: 11px;
+    }
+
+    .detail-item-label {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .detail-item-value {
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    @media (max-width: 600px) {
+      .detail-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .no-selection {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    .highlight-box {
+      margin-top: 12px;
+      font-size: 11px;
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.75);
+      border-radius: 12px;
+      padding: 8px 10px;
+      border: 1px dashed rgba(148, 163, 184, 0.45);
+    }
+
+    .highlight-box span {
+      color: #f97316;
+      font-weight: 600;
+    }
+
+    .footer {
+      margin-top: 10px;
+      font-size: 10px;
+      color: var(--muted);
+      text-align: right;
+      border-top: 1px solid rgba(31, 41, 55, 0.85);
+      padding-top: 7px;
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <!-- SOL: KAYIT LİSTESİ + FİLTRELER -->
+    <div class="card">
+      <div class="header">
+        <div class="title-block">
+          <div class="title">
+            <span class="icon">📊</span>
+            Araç Fiyat Tahmin Kayıtları
+          </div>
+          <div class="subtitle">
+            Kullanıcıların doldurduğu form sonuçları; isim, model ve tahmini fiyat
+            bilgileriyle özetlenmiştir. Satıra tıklayarak sağ tarafta seçili kaydın tüm detaylarını görebilirsiniz.
+          </div>
+        </div>
+        <div class="badge">
+          <span class="badge-dot"></span>
+          Local Admin View
+        </div>
+      </div>
+
+      <!-- Filtreler -->
+      <div class="filters">
+        <div class="filter-field">
+          <span class="filter-label">Model</span>
+          <select id="filterModel" class="select">
+            <option value="">Tüm Modeller</option>
+            <option value="A1">A1</option>
+            <option value="A3">A3</option>
+            <option value="A4">A4</option>
+            <option value="A5">A5</option>
+            <option value="A6">A6</option>
+          </select>
+        </div>
+
+        <div class="filter-field">
+          <span class="filter-label">Min Yaş</span>
+          <input id="filterMinAge" type="number" class="input" placeholder="örn. 0" />
+        </div>
+
+        <div class="filter-field">
+          <span class="filter-label">Maks Yaş</span>
+          <input id="filterMaxAge" type="number" class="input" placeholder="örn. 10" />
+        </div>
+
+        <div class="filter-field" style="flex: 0 0 auto;">
+          <button id="applyFilter" class="btn btn-primary">
+            Filtrele
+          </button>
+        </div>
+        <div class="filter-field" style="flex: 0 0 auto;">
+          <button id="resetFilter" class="btn btn-secondary">
+            Sıfırla
+          </button>
+        </div>
+      </div>
+
+      <!-- Tablo -->
+      <div class="table-wrapper">
+        <div class="table-head">
+          <span class="label">kayıt listesi</span>
+          <span class="count" id="rowCount">0 kayıt</span>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Tarih / Saat</th>
+                <th>Ad Soyad</th>
+                <th>Model</th>
+                <th>Tahmini Fiyat</th>
+                <th>Detay</th>
+                <th>Sil</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              <!-- JS ile doldurulacak -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="small-muted">
+        Veriler, ana tahmin panelinden gelen <code>localStorage</code> kayıtları üzerinden okunmaktadır.
+      </div>
+    </div>
+
+    <!-- SAĞ: SEÇİLİ KAYDIN ÖZETİ -->
+    <div class="card">
+      <div class="detail-header">
+        <div class="detail-title">
+          Seçili Kayıt Özeti
+        </div>
+        <div class="detail-sub" id="noSelectionText">
+          Herhangi bir satıra tıklayarak ilgili kaydın detaylarını burada görebilirsiniz.
+        </div>
+      </div>
+
+      <div id="detailContent" style="display:none;" data-selected-id="">
+        <div class="detail-title" id="detailTitle"></div>
+        <div class="detail-price" id="detailPrice"></div>
+        <div class="detail-meta" id="detailMeta"></div>
+
+        <div class="detail-section-title">
+          <span class="bar"></span> Araç Özellikleri
+        </div>
+        <div class="detail-grid" id="detailCarGrid"></div>
+
+        <div class="detail-section-title">
+          <span class="bar"></span> Kullanıcı & İletişim
+        </div>
+        <div class="detail-grid" id="detailUserGrid"></div>
+
+        <div class="highlight-box">
+          Bu tahmin, CatBoost tabanlı fiyat modeline dayalıdır. Model ve veri yapısından
+          kaynaklı olarak kullanıcıya yaklaşık <span>±130.000 ₺</span> civarında sapma olabileceği
+          ayrıca belirtilmiştir.
+        </div>
+      </div>
+
+      <div class="footer">
+        Admin Paneli • Premium Araç Fiyat Tahmin Projesi
+      </div>
+    </div>
+  </div>
+
+  <script>
+  // Backend API endpointleri
+  const API_LIST = "http://127.0.0.1:5000/admin/records";
+  const API_DELETE = "http://127.0.0.1:5000/admin/delete/";
+
+  let allRecords = [];
+  let filteredRecords = [];
+
+  // ============================
+  // 🔥 SQL VERİTABANINDAN KAYIT ÇEK
+  // ============================
+  async function loadRecordsFromSQL() {
+    try {
+      const res = await fetch(API_LIST);
+      const data = await res.json();
+      allRecords = data;
+      filteredRecords = [...data];
+      renderTable();
+    } catch (err) {
+      console.error("Veritabanı okuma hatası:", err);
+    }
+  }
+
+  function updateRowCount() {
+    document.getElementById("rowCount").textContent =
+      filteredRecords.length + " kayıt";
+  }
+
+  // ============================
+  // 🔥 SQL KAYIT SİLME
+  // ============================
+  async function deleteRecord(id) {
+    if (!confirm("Bu kaydı silmek istediğinize emin misiniz?")) return;
+
+    try {
+      await fetch(API_DELETE + id, { method: "DELETE" });
+
+      // Arayüzü güncelle
+      allRecords = allRecords.filter(r => r.id !== id);
+      filteredRecords = filteredRecords.filter(r => r.id !== id);
+
+      renderTable();
+
+      // Sağ panel temizlensin
+      document.getElementById("detailContent").style.display = "none";
+      document.getElementById("noSelectionText").style.display = "block";
+
+    } catch (err) {
+      console.error("Silme hatası:", err);
+    }
+  }
+
+  // ============================
+  // 🔥 TABLOYU YENİLE
+  // ============================
+  function renderTable() {
+    const tbody = document.getElementById("tableBody");
+    tbody.innerHTML = "";
+
+    if (!filteredRecords.length) {
+      tbody.innerHTML = `
+        <tr><td colspan="6" style="text-align:center; color:#9ca3af;">
+          Kayıt bulunamadı.
+        </td></tr>`;
+      updateRowCount();
+      return;
+    }
+
+    filteredRecords.forEach(rec => {
+      const f = rec.features;
+      const c = rec.contact;
+
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${rec.submittedAt}</td>
+        <td>${c.ad || "-"}</td>
+        <td><span class="pill-mini"><span class="dot"></span>${f.Model}</span></td>
+        <td>${rec.tahmin.toLocaleString("tr-TR")} ₺</td>
+        <td><button class="link-btn" data-id="${rec.id}">Detay</button></td>
+        <td><button class="btn btn-danger" data-del="${rec.id}">Sil</button></td>
+      `;
+
+      // Detay butonu
+      row.querySelector("[data-id]").addEventListener("click", (e) => {
+        e.stopPropagation();
+        showDetails(rec);
+      });
+
+      // Sil butonu
+      row.querySelector("[data-del]").addEventListener("click", (e) => {
+        e.stopPropagation();
+        deleteRecord(rec.id);
+      });
+
+      // Satıra tıklayınca detay
+      row.addEventListener("click", () => showDetails(rec));
+
+      tbody.appendChild(row);
+    });
+
+    updateRowCount();
+  }
+
+  // ============================
+  // 🔥 DETAY GÖSTER
+  // ============================
+  function showDetails(rec) {
+    const f = rec.features;
+    const c = rec.contact;
+
+    document.getElementById("noSelectionText").style.display = "none";
+    const detailBox = document.getElementById("detailContent");
+    detailBox.style.display = "block";
+
+    document.getElementById("detailTitle").textContent =
+      `${f.Model} • ${f.Kasa_tipi}`;
+
+    document.getElementById("detailPrice").textContent =
+      rec.tahmin.toLocaleString("tr-TR") + " ₺";
+
+    document.getElementById("detailMeta").textContent =
+      `Kayıt zamanı: ${rec.submittedAt} • Satıcı: ${f.Kimden}`;
+
+    // Araç özellikleri
+    const carGrid = document.getElementById("detailCarGrid");
+    carGrid.innerHTML = `
+      ${item("Model", f.Model)}
+      ${item("Kasa Tipi", f.Kasa_tipi)}
+      ${item("Yakıt", f.Yakit_tipi)}
+      ${item("Vites", f.Vites)}
+      ${item("Renk", f.Renk)}
+      ${item("Kilometre", f.kilometre.toLocaleString("tr-TR") + " km")}
+      ${item("Motor Gücü", f.Motor_gucu + " hp")}
+      ${item("Yaş", f.Yas + " yıl")}
+      ${item("Hasar Kaydı", f.Hasar_Kaydi.toLocaleString("tr-TR") + " ₺")}
+    `;
+
+    // Kullanıcı alanı
+    const userGrid = document.getElementById("detailUserGrid");
+    userGrid.innerHTML = `
+      ${item("Ad Soyad", c.ad)}
+      ${item("E-posta", c.email)}
+      ${item("Telefon", c.tel)}
+      ${item("Not", c.not)}
+    `;
+  }
+
+  function item(label, value) {
+    return `
+      <div>
+        <div class="detail-item-label">${label}</div>
+        <div class="detail-item-value">${value || "-"}</div>
+      </div>
+    `;
+  }
+
+  // ============================
+  // 🔥 FİLTRELEME
+  // ============================
+  document.getElementById("applyFilter").addEventListener("click", () => {
+    const modelVal = document.getElementById("filterModel").value;
+    const minAge = Number(document.getElementById("filterMinAge").value || 0);
+    const maxAge = Number(document.getElementById("filterMaxAge").value || 99);
+
+    filteredRecords = allRecords.filter(rec => {
+      const f = rec.features;
+
+      if (modelVal && f.Model !== modelVal) return false;
+      if (f.Yas < minAge || f.Yas > maxAge) return false;
+
+      return true;
+    });
+
+    renderTable();
+  });
+
+  document.getElementById("resetFilter").addEventListener("click", () => {
+    filteredRecords = [...allRecords];
+    document.getElementById("filterModel").value = "";
+    document.getElementById("filterMinAge").value = "";
+    document.getElementById("filterMaxAge").value = "";
+    renderTable();
+  });
+
+  // ============================
+  // 🔥 SAYFA YÜKLENİNCE SQL’DEN VERİ ÇEK
+  // ============================
+  loadRecordsFromSQL();
+</script>
+</body>
+</html>
