@@ -35,7 +35,7 @@ It houses the compiled, highly-optimized CatBoost model (`model.cbm`) and the fu
 
 The following diagram illustrates the complete lifecycle of a prediction request within the application:
 
-mermaid
+```mermaid
 graph TD
     A[End User / Web Interface] -->|1. Submit Car Specs| B(Flask Web Server)
     B --> C{2. Payload Validation & Sanitization}
@@ -47,7 +47,6 @@ graph TD
     
     style D fill:#f9f,stroke:#333,stroke-width:2px
     style F fill:#bbf,stroke:#333,stroke-width:2px
-
 Step-by-Step Execution:
 
 Client Interaction: The user inputs specific Audi details via the web UI.
@@ -60,12 +59,12 @@ Database Transaction: SQLAlchemy logs the input parameters and predicted price t
 
 Response: The frontend displays the market value to the user in real-time.
 
-
-API Reference (Internal)
+🔌 API Reference (Internal)
 Endpoint: POST /predict
 
-* Sample Payload:
-"""
+Sample Payload:
+
+JSON
 {
   "model_variant": "A4",
   "year": 2020,
@@ -75,42 +74,31 @@ Endpoint: POST /predict
   "damage_history": "None",
   "engine_power": 190
 }
-"""
-
-* 📂 Repository Structure
-"""
+📂 Repository Structure
+Plaintext
+.
 ├── app.py              # Flask core & SQLAlchemy models
 ├── model.cbm           # Pre-trained CatBoost model
 ├── requirements.txt    # Python dependencies
 ├── runtime.txt         # Deployment versioning
 ├── templates/          # Frontend HTML files
 └── static/             # CSS and JS assets
-"""
+🛠️ Local Installation & Setup
+Clone the repository:
 
-
-
-* 🛠️ Local Installation & Setup
-
-1- Clone the repository:
-
-"""
-git clone [https://github.com/ferhattkoc-ml/arac_fiyat_tahmin.git](https://github.com/ferhattkoc-ml/arac_fiyat_tahmin.git)
+Bash
+git clone https://github.com/ferhattkoc-ml/arac_fiyat_tahmin.git
 cd arac_fiyat_tahmin
-"""
+Setup Environment:
 
-2-Setup Environment:
-"""
+Bash
 python -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate
-"""
+Install & Run:
 
-3- Install & Run:
-
-"""
+Bash
 pip install -r requirements.txt
 python app.py
-"""
-
 
 
 
