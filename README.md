@@ -1,3 +1,4 @@
+
 ```markdown
 # 🏎️ Audi-Predict: Production-Grade ML Deployment & Analytics Platform
 
@@ -119,8 +120,8 @@ To deploy this application in a local development environment:
 **1. Clone the repository:**
 
 ```bash
-git clone [https://github.com/ferhattkoc-ml/audi-price-prediction-app.git](https://github.com/ferhattkoc-ml/audi-price-prediction-app.git)
-cd audi-price-prediction-app
+git clone [https://github.com/ferhattkoc-ml/arac_fiyat_tahmin.git](https://github.com/ferhattkoc-ml/arac_fiyat_tahmin.git)
+cd arac_fiyat_tahmin
 
 ```
 
@@ -149,3 +150,5 @@ python app.py
 *The application will generate the local SQLite database automatically and bind to `http://127.0.0.1:5000/`.*
 
 ---
+
+Kaydet (Commit changes) ve reponun ana sayfasına dönüp bir bak. O "kara kutu" nasıl endüstri standardı bir dökümantasyona dönüşmüş kendi gözlerinle gör!
