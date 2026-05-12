@@ -35,12 +35,6 @@ Rather than focusing on experimentation notebooks or offline analysis, the platf
 
 ---
 
-# 🏗️ System Architecture
-
-mermaid flowchart LR     A[🌐 Frontend Client] --> B[⚡ Flask REST API]     B --> C[🛡️ Validation Layer]     C --> D[🧠 CatBoost Inference Engine]     D --> E[💰 Prediction Response]      D --> F[(📊 Analytics Database)]     F --> G[📈 Admin Dashboard]     G --> H[🔍 Monitoring & Insights]      style D fill:#f5b7ff,stroke:#222,stroke-width:3px,color:#000     style F fill:#b7d7ff,stroke:#222,stroke-width:3px,color:#000     style G fill:#c6ffd1,stroke:#222,stroke-width:3px,color:#000     style B fill:#ffe7b7,stroke:#222,stroke-width:2px,color:#000     style C fill:#ffd6d6,stroke:#222,stroke-width:2px,color:#000     style E fill:#fff2a8,stroke:#222,stroke-width:2px,color:#000 
-
----
-
 # 🚀 Core Features
 
 ## ⚡ Real-Time Inference Engine
@@ -68,7 +62,12 @@ mermaid flowchart LR     A[🌐 Frontend Client] --> B[⚡ Flask REST API]     B
 
 # 🔄 Prediction Workflow
 
-text Client Request       ↓ Validation & Sanitization       ↓ Feature Vector Construction       ↓ CatBoost ML Inference       ↓ Prediction Logging       ↓ Response Delivery 
+text Client Request    
+↓ Validation & Sanitization      
+↓ Feature Vector Construction     
+↓ CatBoost ML Inference    
+↓ Prediction Logging     
+↓ Response Delivery 
 
 ### Workflow Details
 
@@ -82,38 +81,49 @@ text Client Request       ↓ Validation & Sanitization       ↓ Feature Vector
 
 # 📂 Repository Structure
 
-text . ├── app.py                # Flask application & API routes ├── model.cbm             # Production CatBoost model ├── requirements.txt      # Python dependencies ├── runtime.txt           # Deployment runtime configuration ├── templates/            # Frontend templates & admin panel ├── static/               # CSS, JS & assets ├── database/             # Analytics & prediction storage └── logs/                 # Structured application logs 
-
+"""
+├── app.py                # Flask application & API routes
+├── model.cbm             # Production CatBoost model 
+├── requirements.txt      # Python dependencies 
+├── runtime.txt           # Deployment runtime configuration 
+├── templates/            # Frontend templates & admin panel 
+├── static/               # CSS, JS & assets 
+├── database/             # Analytics & prediction storage 
+└── logs/                 # Structured application logs 
+"""
 ---
 
 # 🛠️ Local Setup
 
 ## Clone Repository
-
+"""
 bash git clone https://github.com/ferhattkoc-ml/arac_fiyat_tahmin.git cd arac_fiyat_tahmin 
-
+"""
 ## Create Virtual Environment
-
+"""
 bash python -m venv venv 
-
+"""
 ### Activate Environment
 
 #### Linux / macOS
+"""
 bash source venv/bin/activate 
+"""
 
 #### Windows
+"""
 bash venv\Scripts\activate 
-
+"""
 ## Install Dependencies
-
+"""
 bash pip install -r requirements.txt 
-
+"""
 ## Run Application
-
+"""
 bash python app.py 
 
 Application will be available at:
-
+"""
 text http://127.0.0.1:5000 
 
 ---
@@ -127,15 +137,24 @@ http POST /predict
 ---
 
 ## Request Example
-
-json {   "model_variant": "Audi A6",   "year": 2021,   "mileage": 38000,   "fuel_type": "Diesel",   "transmission": "Automatic",   "damage_history": "Minor",   "engine_power": 204 } 
-
+"""
+json {   "model_variant": "Audi A6", 
+"year": 2021,  
+"mileage": 38000,
+"fuel_type": "Diesel", 
+"transmission": "Automatic",
+"damage_history": "Minor", 
+"engine_power": 204 } 
+"""
 ---
 
 ## Response Example
-
-json {   "status": "success",   "predicted_price": 2450000,   "currency": "TRY",   "model_version": "v1.0-production" } 
-
+"""
+json {   "status": "success",  
+"predicted_price": 2450000, 
+"currency": "TRY", 
+"model_version": "v1.0-production" } 
+"""
 ---
 
 # 📈 Engineering Philosophy
