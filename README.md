@@ -90,11 +90,11 @@ bash . ├── app.py                # Flask application & API routes ├─�
 
 ## Clone Repository
 
-bash git clone https://github.com/ferhattkoc-ml/arac_fiyat_tahmin.git cd arac_fiyat_tahmin 
+bash ``` git clone https://github.com/ferhattkoc-ml/arac_fiyat_tahmin.git cd arac_fiyat_tahmin  ```
 
 ## Create Virtual Environment
 
-bash python -m venv venv 
+bash ``` python -m venv venv ``` 
 
 ## Activate Environment
 
