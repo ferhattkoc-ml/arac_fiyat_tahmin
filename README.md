@@ -1,5 +1,3 @@
-
-```markdown
 # 🏎️ Audi-Predict: Production-Grade ML Deployment & Analytics Platform
 
 ![Python](https://img.shields.io/badge/Python-3.9%2B-blue?style=for-the-badge&logo=python&logoColor=white)
@@ -50,27 +48,24 @@ graph TD
     style D fill:#f9f,stroke:#333,stroke-width:2px
     style F fill:#bbf,stroke:#333,stroke-width:2px
 
-```
+Step-by-Step Execution:
 
-### Step-by-Step Execution:
+Client Interaction: The user inputs specific Audi details via the web UI.
 
-1. **Client Interaction:** The user inputs specific Audi details (Age, Mileage, Transmission, Fuel Type, Body Type, Damage status) via the web UI.
-2. **API Routing:** `app.py` captures the POST request and maps the incoming form data to the model's required feature vector.
-3. **Inference:** The compiled `model.cbm` file is loaded into memory. It processes the raw feature vector and returns a continuous numerical value (The Estimated Price).
-4. **Database Transaction:** Before the user sees the result, SQLAlchemy opens a session, writes the exact input parameters and the predicted price to the `prediction_logs` table, and commits the transaction.
-5. **Response:** The frontend dynamically updates to display the market value to the user.
+API Routing: app.py captures the POST request and maps form data to the model's feature vector.
 
----
+Inference: The model.cbm file is loaded into memory to calculate the Estimated Price.
 
-## 🔌 API Reference (Internal)
+Database Transaction: SQLAlchemy logs the input parameters and predicted price to the database.
 
-The Flask backend exposes an internal endpoint for the frontend to consume.
+Response: The frontend displays the market value to the user in real-time.
 
-**Endpoint:** `POST /predict`
 
-**Sample Payload:**
+API Reference (Internal)
+Endpoint: POST /predict
 
-```json
+* Sample Payload:
+"""
 {
   "model_variant": "A4",
   "year": 2020,
@@ -80,75 +75,44 @@ The Flask backend exposes an internal endpoint for the frontend to consume.
   "damage_history": "None",
   "engine_power": 190
 }
+"""
 
-```
-
-**Sample Response:**
-
-```json
-{
-  "status": "success",
-  "predicted_price_try": 2150000,
-  "log_id": "req-8923-xyz"
-}
-
-```
-
----
-
-## 📂 Repository Structure
-
-```text
-.
-├── app.py              # The core Flask application, API routes, and SQLAlchemy models.
-├── model.cbm           # The pre-trained, production-ready CatBoost regression model.
-├── requirements.txt    # Python dependencies for environment replication.
-├── runtime.txt         # Defines the Python runtime version for cloud PaaS deployments.
-├── templates/          # Frontend structure
-│   ├── index.html      # Main prediction interface
-│   └── admin.html      # Internal dashboard for monitoring database logs
+* 📂 Repository Structure
+"""
+├── app.py              # Flask core & SQLAlchemy models
+├── model.cbm           # Pre-trained CatBoost model
+├── requirements.txt    # Python dependencies
+├── runtime.txt         # Deployment versioning
+├── templates/          # Frontend HTML files
 └── static/             # CSS and JS assets
+"""
 
-```
 
----
 
-## 🛠️ Local Installation & Setup
+* 🛠️ Local Installation & Setup
 
-To deploy this application in a local development environment:
+1- Clone the repository:
 
-**1. Clone the repository:**
-
-```bash
+"""
 git clone [https://github.com/ferhattkoc-ml/arac_fiyat_tahmin.git](https://github.com/ferhattkoc-ml/arac_fiyat_tahmin.git)
 cd arac_fiyat_tahmin
+"""
 
-```
-
-**2. Create and activate a virtual environment (Recommended):**
-
-```bash
+2-Setup Environment:
+"""
 python -m venv venv
-source venv/bin/activate  # On Windows use: venv\Scripts\activate
+source venv/bin/activate  # Windows: venv\Scripts\activate
+"""
 
-```
+3- Install & Run:
 
-**3. Install the required dependencies:**
-
-```bash
+"""
 pip install -r requirements.txt
-
-```
-
-**4. Initialize the server:**
-
-```bash
 python app.py
+"""
 
-```
 
-*The application will generate the local SQLite database automatically and bind to `http://127.0.0.1:5000/`.*
 
----
 
-Kaydet (Commit changes) ve reponun ana sayfasına dönüp bir bak. O "kara kutu" nasıl endüstri standardı bir dökümantasyona dönüşmüş kendi gözlerinle gör!
+
+
