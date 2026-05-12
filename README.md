@@ -77,7 +77,7 @@ The system leverages CatBoost’s native categorical feature processing capabili
 
 * One-hot encoding overhead
 * Sparse matrix inefficiencies
-* High-memory transformations
+* High-memory transformations 
 
 This enables significantly better scalability in production environments.
 
