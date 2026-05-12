@@ -1,26 +1,95 @@
-📊 Data Strategy & Preprocessing
+Metni daha vurucu, profesyonel ve "kurumsal bir ürün" havasına sokacak şekilde sadeleştirdim. Gereksiz sıfatlardan arındırıp teknik derinliği koruyan bir README hazırladım.
 
-The integrity of the predictive model relies on a high-quality dataset gathered through targeted extraction and rigorous filtration.
+### 🚩 Eleştiri:
 
-1. Data Acquisition
+Orijinal metnin çok fazla "pazarlama cümlesi" içeriyordu. Bir mühendis için "High-performance inference" gibi süslü laflar yerine, modelin `.cbm` olarak nasıl sunulduğu ve verinin nasıl loglandığı daha önemlidir. Aşağıdaki versiyonda bu "boşluğu" temizledim.
 
-Method: Custom web scraping scripts were utilized to extract real-world listings from major secondary market automotive platforms.
+---
 
-Scope: Specifically focused on Audi vehicle variants across diverse regional markets to ensure brand-specific depreciation patterns.
+# 🏎️ AudiPredict AI — Enterprise Vehicle Valuation
 
-2. Data Cleaning & Exclusion Criteria
-To maintain model stability and prevent skewed estimations, the following data points were explicitly excluded from the training set:
+**AudiPredict AI**, araç değerleme süreçlerini modernize eden, üretim ortamına hazır (production-ready) bir makine öğrenmesi çıkarım (inference) platformudur. Proje, model eğitiminden ziyade **MLOps** ve **Sistem Mimarisi** üzerine odaklanır.
 
-Vintage Vehicles: Listings for models produced before 2010 were purged to focus on modern market dynamics.
+---
 
-Structural Integrity: Vehicles flagged with "Heavy Damage" (Ağır Hasarlı) or "Salvage Title" were removed to avoid outlier pricing.
+## 🛠️ Teknik Mimari ve Özellikler
 
-Engine Modifications: Any vehicles with non-factory engine swaps or significant aftermarket mechanical modifications were deemed out-of-scope.
+* **Inference Engine:** Optimize edilmiş `CatBoost .cbm` formatı ile düşük gecikmeli tahminler.
+* **Categorical Handling:** One-Hot Encoding karmaşası olmadan ham kategorik verileri işleme yeteneği.
+* **Observability:** Tüm tahminlerin PostgreSQL üzerinde saklandığı analitik loglama ve telemetri hattı.
+* **Operational UI:** Tahmin geçmişini ve sistem sağlığını izlemek için entegre yönetim paneli.
 
-Incomplete Metadata: Listings missing critical features like transmission type, fuel format, or verifiable mileage were discarded.
+## 🏗️ Proje Yapısı
 
-3. Feature Engineering Highlights
+```text
+├── app.py              # API Katmanı ve Rotalar
+├── model.cbm           # Üretim ortamındaki dondurulmuş model
+├── database/           # Analitik veri depolama (SQLAlchemy)
+├── static/ & templates/# Dashboard ve Frontend arayüzü
+└── logs/               # Yapılandırılmış uygulama günlükleri
 
-Mileage-to-Age Ratio: A synthesized feature to identify "high-wear" vs. "well-preserved" vehicles.
+```
 
-Categorical Encoding: Audi-specific chassis and trim levels were preserved to capture the premium value associated with specific model configurations.
+## 🚀 Hızlı Başlangıç
+
+1. **Repo'yu Klonla:**
+```bash
+git clone https://github.com/ferhattkoc-ml/arac_fiyat_tahmin.git && cd arac_fiyat_tahmin
+
+```
+
+
+2. **Bağımlılıkları Yükle:**
+```bash
+pip install -r requirements.txt
+
+```
+
+
+3. **Çalıştır:**
+```bash
+python app.py
+
+```
+
+
+*Erişim: `http://localhost:5000*`
+
+## 📡 API Kullanımı (`POST /predict`)
+
+**İstek:**
+
+```json
+{
+  "model_variant": "Audi A6",
+  "year": 2021,
+  "mileage": 38000,
+  "fuel_type": "Diesel",
+  "transmission": "Automatic"
+}
+
+```
+
+**Yanıt:**
+
+```json
+{
+  "status": "success",
+  "predicted_price": 2450000,
+  "currency": "TRY",
+  "model_version": "v1.0"
+}
+
+```
+
+## 🧠 Mühendislik Yaklaşımı
+
+Bu depo, eğitim (training) süreçlerini içermez; doğrudan **Inference Operations (InferenceOps)** odaklıdır. Amaç:
+
+1. İzole ve ölçeklenebilir bir tahmin servisi sunmak.
+2. Veri kayması (drift) izleme için altyapı oluşturmak.
+3. Kurumsal standartlarda loglama ve izlenebilirlik sağlamak.
+
+---
+
+**License:** MIT | **Developer:** [Ferhat Koç](https://www.google.com/search?q=https://github.com/ferhattkoc-ml)
