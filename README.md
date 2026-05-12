@@ -35,7 +35,7 @@ It houses the compiled, highly-optimized CatBoost model (`model.cbm`) and the fu
 
 The following diagram illustrates the complete lifecycle of a prediction request within the application:
 
-```mermaid
+mermaid
 graph TD
     A[End User / Web Interface] -->|1. Submit Car Specs| B(Flask Web Server)
     B --> C{2. Payload Validation & Sanitization}
