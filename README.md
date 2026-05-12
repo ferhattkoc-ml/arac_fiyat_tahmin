@@ -62,8 +62,14 @@ Core engineering goals include:
 
 # 🔄 Prediction Workflow
 
-bash Client Request       ↓ Validation & Sanitization       ↓ Feature Vector Construction       ↓ CatBoost ML Inference       ↓ Prediction Logging       ↓ Response Delivery 
+bash ''' Client Request     
+↓ Validation & Sanitization    
+↓ Feature Vector Construction     
+↓ CatBoost ML Inference     
+↓ Prediction Logging    
+↓ Response Delivery 
 
+'''
 ### Workflow Details
 
 - Users submit vehicle specifications through the frontend interface
