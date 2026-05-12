@@ -1,8 +1,3 @@
-Metni daha vurucu, profesyonel ve "kurumsal bir ürün" havasına sokacak şekilde sadeleştirdim. Gereksiz sıfatlardan arındırıp teknik derinliği koruyan bir README hazırladım.
-
-### 🚩 Eleştiri:
-
-Orijinal metnin çok fazla "pazarlama cümlesi" içeriyordu. Bir mühendis için "High-performance inference" gibi süslü laflar yerine, modelin `.cbm` olarak nasıl sunulduğu ve verinin nasıl loglandığı daha önemlidir. Aşağıdaki versiyonda bu "boşluğu" temizledim.
 
 ---
 
