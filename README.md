@@ -1,4 +1,4 @@
-🏎️ AudiPredict AI — Enterprise Vehicle Valuation Platform
+## 🏎️ AudiPredict AI — Enterprise Vehicle Valuation Platform
 
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.11-blue?style=for-the-badge&logo=python&logoColor=white"/>
@@ -17,7 +17,7 @@ AI-Powered Vehicle Price Intelligence & Real-Time ML Inference System
 
 ⸻
 
-✨ Overview
+## ✨ Overview
 
 AudiPredict AI is a full-stack machine learning deployment platform developed for real-time secondary market vehicle valuation.
 
@@ -27,7 +27,7 @@ Unlike notebook-based ML projects, this repository demonstrates how trained mode
 
 ⸻
 
-🧠 Project Vision
+## 🧠 Project Vision
 
 Traditional vehicle valuation systems rely heavily on static pricing heuristics and manual expertise.
 
@@ -44,7 +44,7 @@ The system delivers instant market value estimations while simultaneously collec
 
 ⸻
 
-🏗️ Production Architecture
+## 🏗️ Production Architecture
 
 flowchart LR
 A[Frontend Client] --> B[Flask REST API]
@@ -60,7 +60,7 @@ style G fill:#c6ffd1,stroke:#222,stroke-width:2px
 
 ⸻
 
-🚀 Key Capabilities
+## 🚀 Key Capabilities
 
 ⚡ Real-Time Inference
 
@@ -71,7 +71,7 @@ style G fill:#c6ffd1,stroke:#222,stroke-width:2px
 
 ⸻
 
-🧩 Native Categorical Intelligence
+## 🧩 Native Categorical Intelligence
 
 The system leverages CatBoost’s native categorical feature processing capabilities, eliminating:
 
@@ -83,7 +83,7 @@ This enables significantly better scalability in production environments.
 
 ⸻
 
-📊 Enterprise Observability
+## 📊 Enterprise Observability
 
 Every prediction request is fully logged for:
 
@@ -103,7 +103,7 @@ Captured metadata includes:
 
 ⸻
 
-🔐 Internal Admin Dashboard
+## 🔐 Internal Admin Dashboard
 
 A dedicated analytics panel provides:
 
@@ -115,7 +115,7 @@ A dedicated analytics panel provides:
 
 ⸻
 
-🌐 RESTful API Infrastructure
+## 🌐 RESTful API Infrastructure
 
 The platform follows a decoupled architecture:
 
@@ -129,7 +129,7 @@ Database	PostgreSQL / SQLite
 
 ⸻
 
-🔄 Prediction Lifecycle
+## 🔄 Prediction Lifecycle
 
 1️⃣ Client Request
 
@@ -149,7 +149,7 @@ Example:
 
 ⸻
 
-2️⃣ Validation Layer
+## 2️⃣ Validation Layer
 
 Incoming payloads are:
 
@@ -161,13 +161,13 @@ before reaching the inference engine.
 
 ⸻
 
-3️⃣ ML Inference Engine
+## 3️⃣ ML Inference Engine
 
 The optimized CatBoost model (model.cbm) performs real-time regression inference using production-grade prediction pipelines.
 
 ⸻
 
-4️⃣ Prediction Generation
+## 4️⃣ Prediction Generation
 
 The API returns:
 
@@ -179,7 +179,7 @@ within milliseconds.
 
 ⸻
 
-5️⃣ Database Logging
+## 5️⃣ Database Logging
 
 SQLAlchemy persists:
 
@@ -191,7 +191,7 @@ for observability and analytics purposes.
 
 ⸻
 
-📂 Repository Structure
+## 📂 Repository Structure
 
 .
 ├── app.py                  # Flask application & routing logic
@@ -205,16 +205,16 @@ for observability and analytics purposes.
 
 ⸻
 
-🛠️ Local Installation
+## 🛠️ Local Installation
 
-Clone Repository
+# Clone Repository
 
 git clone https://github.com/ferhattkoc-ml/arac_fiyat_tahmin.git
 cd arac_fiyat_tahmin
 
 ⸻
 
-Create Virtual Environment
+# Create Virtual Environment
 
 python -m venv venv
 
@@ -228,13 +228,13 @@ venv\Scripts\activate
 
 ⸻
 
-Install Dependencies
+# Install Dependencies
 
 pip install -r requirements.txt
 
 ⸻
 
-Run Application
+# Run Application
 
 python app.py
 
@@ -244,7 +244,7 @@ http://127.0.0.1:5000
 
 ⸻
 
-📡 API Reference
+# 📡 API Reference
 
 Prediction Endpoint
 
@@ -252,7 +252,7 @@ POST /predict
 
 ⸻
 
-Request Body
+# Request Body
 
 {
   "model_variant": "Audi A6",
@@ -266,7 +266,7 @@ Request Body
 
 ⸻
 
-Response Example
+# Response Example
 
 {
   "status": "success",
@@ -277,7 +277,7 @@ Response Example
 
 ⸻
 
-📈 MLOps Philosophy
+##  📈 MLOps Philosophy
 
 This repository intentionally excludes:
 
@@ -298,7 +298,7 @@ This mirrors real-world enterprise ML system design where:
 
 ⸻
 
-🔒 Security & Reliability
+## 🔒 Security & Reliability
 
 The system includes:
 
@@ -311,7 +311,7 @@ The system includes:
 
 ⸻
 
-🧪 Future Improvements
+## 🧪 Future Improvements
 
 Planned roadmap includes:
 
@@ -326,7 +326,7 @@ Planned roadmap includes:
 
 ⸻
 
-👨‍💻 Author
+## 👨‍💻 Author
 
 Ferhat Koç
 
@@ -339,7 +339,7 @@ Machine Learning • Data Science • MLOps • Analytics Engineering
 
 ⸻
 
-📜 License
+## 📜 License
 
 This project is intended for:
 
@@ -350,7 +350,7 @@ This project is intended for:
 
 ⸻
 
-⭐ Final Note
+## ⭐ Final Note
 
 AudiPredict AI is not a simple notebook-based ML demo.
 
