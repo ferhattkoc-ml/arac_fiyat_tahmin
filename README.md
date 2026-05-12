@@ -19,13 +19,13 @@ Production-grade machine learning infrastructure delivering real-time vehicle va
 
 ---
 
-## ✨ Overview
+# ✨ Overview
 
 AudiPredict AI is an end-to-end machine learning deployment platform designed for real-time secondary market vehicle valuation.
 
-The project emphasizes the production engineering lifecycle of machine learning systems — transforming a trained regression model into a scalable, observable, and enterprise-ready inference service.
+The project focuses on the production engineering lifecycle of machine learning systems — transforming a trained regression model into a scalable, observable, and enterprise-ready inference service.
 
-Rather than focusing on experimentation notebooks or offline analysis, the platform is built around:
+Core engineering goals include:
 
 - High-performance inference
 - API reliability
@@ -44,87 +44,73 @@ Rather than focusing on experimentation notebooks or offline analysis, the platf
 
 ## 🧩 Native Categorical Processing
 - Eliminates One-Hot Encoding complexity
-- Efficient handling of categorical variables
-- Reduced memory overhead and sparse matrix costs
+- Efficient categorical feature handling
+- Reduced sparse matrix overhead
 
 ## 📊 Enterprise Observability
-- Full request & prediction logging
+- Request & prediction logging
 - Inference telemetry collection
 - Data drift monitoring capability
 - Audit-friendly analytics pipeline
 
 ## 🔐 Operational Dashboard
 - Historical prediction tracking
-- Request monitoring
-- System visibility & analytics management
+- Real-time request monitoring
+- Operational analytics visibility
 
 ---
 
 # 🔄 Prediction Workflow
 
-text Client Request    
-↓ Validation & Sanitization      
-↓ Feature Vector Construction     
-↓ CatBoost ML Inference    
-↓ Prediction Logging     
-↓ Response Delivery 
+bash Client Request       ↓ Validation & Sanitization       ↓ Feature Vector Construction       ↓ CatBoost ML Inference       ↓ Prediction Logging       ↓ Response Delivery 
 
 ### Workflow Details
 
 - Users submit vehicle specifications through the frontend interface
-- Incoming payloads are validated and transformed into model-ready feature vectors
+- Incoming payloads are validated and transformed into feature vectors
 - The CatBoost inference engine performs real-time valuation prediction
-- All prediction metadata is persisted for analytics and monitoring
-- The API returns estimated market value and inference metadata
+- Prediction metadata is persisted for analytics and monitoring
+- The API returns estimated market value with inference metadata
 
 ---
 
 # 📂 Repository Structure
 
-"""
-├── app.py                # Flask application & API routes
-├── model.cbm             # Production CatBoost model 
-├── requirements.txt      # Python dependencies 
-├── runtime.txt           # Deployment runtime configuration 
-├── templates/            # Frontend templates & admin panel 
-├── static/               # CSS, JS & assets 
-├── database/             # Analytics & prediction storage 
-└── logs/                 # Structured application logs 
-"""
+bash . ├── app.py                # Flask application & API routes ├── model.cbm             # Production CatBoost model ├── requirements.txt      # Python dependencies ├── runtime.txt           # Deployment runtime configuration ├── templates/            # Frontend templates & admin panel ├── static/               # CSS, JS & assets ├── database/             # Analytics & prediction storage └── logs/                 # Structured application logs 
+
 ---
 
 # 🛠️ Local Setup
 
 ## Clone Repository
-"""
+
 bash git clone https://github.com/ferhattkoc-ml/arac_fiyat_tahmin.git cd arac_fiyat_tahmin 
-"""
+
 ## Create Virtual Environment
-"""
+
 bash python -m venv venv 
-"""
-### Activate Environment
 
-#### Linux / macOS
-"""
+## Activate Environment
+
+### Linux / macOS
+
 bash source venv/bin/activate 
-"""
 
-#### Windows
-"""
+### Windows
+
 bash venv\Scripts\activate 
-"""
+
 ## Install Dependencies
-"""
+
 bash pip install -r requirements.txt 
-"""
+
 ## Run Application
-"""
+
 bash python app.py 
 
-Application will be available at:
-"""
-text http://127.0.0.1:5000 
+Application runs at:
+
+bash http://127.0.0.1:5000 
 
 ---
 
@@ -132,29 +118,20 @@ text http://127.0.0.1:5000
 
 ## Prediction Endpoint
 
-http POST /predict 
+bash POST /predict 
 
 ---
 
 ## Request Example
-"""
-json {   "model_variant": "Audi A6", 
-"year": 2021,  
-"mileage": 38000,
-"fuel_type": "Diesel", 
-"transmission": "Automatic",
-"damage_history": "Minor", 
-"engine_power": 204 } 
-"""
+
+json {   "model_variant": "Audi A6",   "year": 2021,   "mileage": 38000,   "fuel_type": "Diesel",   "transmission": "Automatic",   "damage_history": "Minor",   "engine_power": 204 } 
+
 ---
 
 ## Response Example
-"""
-json {   "status": "success",  
-"predicted_price": 2450000, 
-"currency": "TRY", 
-"model_version": "v1.0-production" } 
-"""
+
+json {   "status": "success",   "predicted_price": 2450000,   "currency": "TRY",   "model_version": "v1.0-production" } 
+
 ---
 
 # 📈 Engineering Philosophy
@@ -167,7 +144,7 @@ This repository intentionally excludes:
 
 The platform is designed specifically around production deployment engineering and ML inference operations.
 
-This mirrors real-world enterprise ML architecture where:
+This mirrors enterprise ML architecture where:
 
 - Training environments remain isolated
 - Inference systems operate independently
@@ -202,4 +179,4 @@ This mirrors real-world enterprise ML architecture where:
 
 # 📜 License
 
-This project is intended for educational, portfolio, and production engineering demonstration purpos
+This project is intended for educational, portfolio, and production engineering demonstration purposes
