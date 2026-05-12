@@ -47,16 +47,23 @@ The system delivers instant market value estimations while simultaneously collec
 ## 🏗️ Production Architecture
 
 flowchart LR
-A[Frontend Client] --> B[Flask REST API]
-B --> C[Validation Layer]
-C --> D[CatBoost Inference Engine]
-D --> E[Prediction Response]
-D --> F[(SQLAlchemy Analytics DB)]
-F --> G[Admin Dashboard]
-G --> H[Monitoring & Insights]
-style D fill:#f5b7ff,stroke:#222,stroke-width:2px
-style F fill:#b7d7ff,stroke:#222,stroke-width:2px
-style G fill:#c6ffd1,stroke:#222,stroke-width:2px
+
+A[🌐 Frontend Client] --> B[⚡ Flask REST API]
+B --> C[🛡️ Validation Layer]
+C --> D[🧠 CatBoost Inference Engine]
+
+D --> E[💰 Prediction Response]
+D --> F[(📊 SQLAlchemy Analytics DB)]
+
+F --> G[📈 Admin Dashboard]
+G --> H[🔍 Monitoring & Insights]
+
+style D fill:#f5b7ff,stroke:#222,stroke-width:3px,color:#000
+style F fill:#b7d7ff,stroke:#222,stroke-width:3px,color:#000
+style G fill:#c6ffd1,stroke:#222,stroke-width:3px,color:#000
+style B fill:#ffe7b7,stroke:#222,stroke-width:2px,color:#000
+style C fill:#ffd6d6,stroke:#222,stroke-width:2px,color:#000
+style E fill:#fff2a8,stroke:#222,stroke-width:2px,color:#000
 
 ⸻
 
@@ -194,14 +201,36 @@ for observability and analytics purposes.
 ## 📂 Repository Structure
 
 .
-├── app.py                  # Flask application & routing logic
-├── model.cbm               # Optimized CatBoost production model
-├── requirements.txt        # Python dependencies
-├── runtime.txt             # Runtime version configuration
-├── templates/              # Frontend HTML templates
-├── static/                 # CSS, JS, assets
-├── database/               # Database storage
-└── logs/                   # System & inference logs
+├── app.py
+│   └── Flask application, routing & API endpoints
+│
+├── model.cbm
+│   └── Optimized CatBoost production model
+│
+├── requirements.txt
+│   └── Python dependency definitions
+│
+├── runtime.txt
+│   └── Runtime & deployment configuration
+│
+├── templates/
+│   └── Frontend HTML templates
+│
+├── static/
+│   ├── css/
+│   ├── js/
+│   └── assets/
+│
+├── database/
+│   └── Prediction logs & analytics storage
+│
+├── logs/
+│   ├── inference.log
+│   ├── api.log
+│   └── system.log
+│
+└── README.md
+    └── Project documentation
 
 ⸻
 
