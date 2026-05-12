@@ -82,41 +82,57 @@ bash ''' Client Request
 
 # 📂 Repository Structure
 
-bash . ├── app.py                # Flask application & API routes ├── model.cbm             # Production CatBoost model ├── requirements.txt      # Python dependencies ├── runtime.txt           # Deployment runtime configuration ├── templates/            # Frontend templates & admin panel ├── static/               # CSS, JS & assets ├── database/             # Analytics & prediction storage └── logs/                 # Structured application logs 
-
+bash ```
+├── app.py                # Flask application & API routes 
+├── model.cbm             # Production CatBoost model 
+├── requirements.txt      # Python dependencies 
+├── runtime.txt           # Deployment runtime configuration 
+├── templates/            # Frontend templates & admin panel 
+├── static/               # CSS, JS & assets 
+├── database/             # Analytics & prediction storage 
+└── logs/                 # Structured application logs 
+```
 ---
 
 # 🛠️ Local Setup
 
 ## Clone Repository
 
-bash ``` git clone https://github.com/ferhattkoc-ml/arac_fiyat_tahmin.git cd arac_fiyat_tahmin  ```
+bash 
+``` git clone https://github.com/ferhattkoc-ml/arac_fiyat_tahmin.git 
+cd arac_fiyat_tahmin  ```
 
 ## Create Virtual Environment
 
-bash ``` python -m venv venv ``` 
+bash
+ ``` python -m venv venv ``` 
 
 ## Activate Environment
 
 ### Linux / macOS
 
-bash source venv/bin/activate 
+bash
+```source venv/bin/activate ```
 
 ### Windows
 
-bash venv\Scripts\activate 
+bash
+```venv\Scripts\activate ```
 
 ## Install Dependencies
 
-bash pip install -r requirements.txt 
+bash
+```pip install -r requirements.txt ```
 
 ## Run Application
 
-bash python app.py 
+bash
+```python app.py ```
 
 Application runs at:
 
-bash http://127.0.0.1:5000 
+bash
+```http://127.0.0.1:5000 ```
 
 ---
 
@@ -129,15 +145,24 @@ bash POST /predict
 ---
 
 ## Request Example
-
-json {   "model_variant": "Audi A6",   "year": 2021,   "mileage": 38000,   "fuel_type": "Diesel",   "transmission": "Automatic",   "damage_history": "Minor",   "engine_power": 204 } 
-
+```
+json {   "model_variant": "Audi A6",  
+"year": 2021,   
+"mileage": 38000,  
+"fuel_type": "Diesel",  
+"transmission": "Automatic",  
+"damage_history": "Minor",  
+"engine_power": 204 } 
+```
 ---
 
 ## Response Example
-
-json {   "status": "success",   "predicted_price": 2450000,   "currency": "TRY",   "model_version": "v1.0-production" } 
-
+```
+json {   "status": "success",  
+"predicted_price": 2450000,  
+"currency": "TRY", 
+"model_version": "v1.0-production" } 
+```
 ---
 
 # 📈 Engineering Philosophy
@@ -160,6 +185,8 @@ This mirrors enterprise ML architecture where:
 
 # 🧠 Tech Stack
 
+```
+
 | Layer | Technologies |
 |---|---|
 | Machine Learning | CatBoost |
@@ -169,6 +196,7 @@ This mirrors enterprise ML architecture where:
 | Monitoring | Structured Logging |
 | Language | Python 3.11 |
 
+```
 ---
 
 # 🔮 Future Enhancements
