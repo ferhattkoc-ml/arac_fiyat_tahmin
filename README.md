@@ -1,47 +1,49 @@
+
 ```markdown
 # 🏎️ AudiPredict AI — Enterprise Vehicle Valuation
-> **Premium Segment İkinci El Araçlarda Teknik ve Yapısal Özelliklere Göre Fiyat Tahmini: CatBoost Regresyon Yaklaşımı ve MLOps Altyapısı**
+> **Premium Segment İkinci El Araçlarda Teknik ve Yapısal Özelliklere Göre Fiyat Tahmini: CatBoost Regresyon Yaklaşımı Belgesi ve MLOps Altyapısı**[cite: 1]
 
-An analytical, production-ready vehicle valuation platform developed as part of an undergraduate research project. This repository focuses on bridging the gap between rigorous statistical modeling and robust **Inference Operations (InferenceOps)**.
+An analytical, production-ready vehicle valuation platform developed as part of an undergraduate research project[cite: 1]. This repository focuses on bridging the gap between rigorous statistical modeling and robust **Inference Operations (InferenceOps)**[cite: 1].
 
 ---
 
 ### 📝 Akademik Özet & Proje Amacı
-Bu proje, **Süleyman Demirel Üniversitesi Mühendislik ve Doğa Bilimleri Fakültesi İstatistik Bölümü** lisans araştırma projesi kapsamında geliştirilmiştir. Çalışmanın amacı, Türkiye ikinci el otomobil piyasasındaki premium segment araçların fiyat dinamiklerini etkileyen teknik ve yapısal faktörleri analiz etmek ve bu faktörlere dayalı yüksek doğruluklu bir fiyat tahmin motoru oluşturmaktır.
+Bu proje, **Süleyman Demirel Üniversitesi Mühendislik ve Doğa Bilimleri Fakültesi İstatistik Bölümü** lisans araştırma projesi kapsamında geliştirilmiştir[cite: 1]. Çalışmanın amacı, Türkiye ikinci el otomobil piyasasındaki premium segment araçların fiyat dinamiklerini etkileyen teknik ve yapısal faktörleri analiz etmek ve bu faktörlere dayalı yüksek doğruluklu bir fiyat tahmin motoru oluşturmaktır[cite: 1].
 
-Klasik doğrusal regresyon modellerinin aksine, araç fiyatlarındaki doğrusal olmayan (non-linear) karmaşık etkileşimleri ve çoklu bağlantı (multicollinearity) problemlerini adreslemek amacıyla, gradyan artırma (gradient boosting) tabanlı güçlü bir makine öğrenmesi algoritması olan **CatBoost Regresyonu** tercih edilmiştir.
+Klasik doğrusal regresyon modellerinin aksine, araç fiyatlarındaki doğrusal olmayan (non-linear) karmaşık etkileşimleri ve çoklu bağlantı (multicollinearity) problemlerini adreslemek amacıyla, gradyan artırma (gradient boosting) tabanlı güçlü bir makine öğrenmesi algoritması olan **CatBoost Regresyonu** tercih edilmiştir[cite: 1].
 
 ---
 
 ### 🛠️ Teknik Mimari ve MLOps Özellikleri
 
-Mevcut repo, modelin eğitim (training) süreçlerinden ziyade doğrudan üretim ortamındaki tahmin operasyonlarına (**Inference Operations**) odaklanır:
+Mevcut repo, modelin eğitim (training) süreçlerinden ziyade doğrudan üretim ortamındaki tahmin operasyonlarına (**Inference Operations**) odaklanır[cite: 1]:
 
-* **Native CatBoost Inference Engine:** Model, One-Hot Encoding veya Label Encoding gibi veri boyutunu artıran ve seyrekleştiren ara işlemlere gerek duymadan, kategorik verileri yerleşik (native) olarak işleyebilen dondurulmuş `model.cbm` (CatBoost Binary Model) formatında servis edilir. Bu sayede tahmin gecikme süresi (latency) minimuma indirilmiştir.
-* **Veri Tabanı Tabanlı Telemetri ve Loglama:** Üretim ortamında yapılan her tahmin isteği; girdi parametreleri, üretilen tahmin değeri, sistem zaman damgası ve model versiyon bilgisi ile birlikte **PostgreSQL (SQLAlchemy ORM)** üzerinde analitik olarak saklanır. Bu altyapı, zaman içinde oluşabilecek **Veri Kayması (Data Drift)** ve **Kavram Kayması (Concept Drift)** analizleri için zemin hazırlar.
-* **Operational UI:** Sistemin anlık sağlık durumunu (system health), geçmiş tahmin loglarını ve hata dağılımlarını izlemek amacıyla Flask tabanlı entegre bir yönetim paneli (dashboard) sunulmaktadır.
+*   **Native CatBoost Inference Engine:** Model, One-Hot Encoding veya Label Encoding gibi veri boyutunu artıran ve seyrekleştiren ara işlemlere gerek duymadan, kategorik verileri yerleşik (native) olarak işleyebilen dondurulmuş `model.cbm` (CatBoost Binary Model) formatında servis edilir[cite: 1]. Bu sayede tahmin gecikme süresi (latency) minimuma indirilmiştir[cite: 1].
+*   **Veri Tabanı Tabanlı Telemetri ve Loglama:** Üretim ortamında yapılan her tahmin isteği; girdi parametreleri, üretilen tahmin değeri, sistem zaman damgası ve model versiyon bilgisi ile birlikte **PostgreSQL (SQLAlchemy ORM)** üzerinde analitik olarak saklanır[cite: 1]. Bu altyapı, zaman içinde oluşabilecek **Veri Kayması (Data Drift)** ve **Kavram Kayması (Concept Drift)** analizleri için zemin hazırlar[cite: 1].
+*   **Operational UI:** Sistemin anlık sağlık durumunu (system health), geçmiş tahmin loglarını ve hata dağılımlarını izlemek amacıyla Flask tabanlı entegre bir yönetim paneli (dashboard) sunulmaktadır[cite: 1].
 
 ---
 
 ### 📐 Veri Ön İşleme ve Özellik Mühendisliği (Feature Engineering)
-Modelin yanlılığını (bias) azaltmak ve tahmin tutarlılığını en üst düzeneye çıkarmak adına veri seti üzerinde katı istatistiksel filtreler uygulanmıştır:
-1.  **Yapısal Arındırma:** Piyasa fiyatlamasını manipüle eden ağır hasar kayıtlı araçlar ile şase, podye veya airbag işlemi görmüş, yapısal bütünlüğü bozulmuş araçlar veri setinden çıkarılmıştır.
-2.  **Zaman Filtresi:** Modelin güncel piyasa dinamiklerini yakalaması adına 2010 model yılı öncesi araçlar analiz dışı bırakılmıştır.
-3.  **Yıllık Kullanım Yoğunluğu ($km\_per\_age$):** Toplam kilometre bilgisi, aracın yaşına bölünerek yıllık ortalama yıpranma katsayısı türetilmiş ve modele güçlü bir öngörücü olarak eklenmiştir.
+Modelin yanlılığını (bias) azaltmak ve tahmin tutarlılığını en üst düzeyeye çıkarmak adına veri seti üzerinde katı istatistiksel filtreler uygulanmıştır[cite: 1]:
+
+1. **Yapısal Arındırma:** Piyasa fiyatlamasını manipüle eden ağır hasar kayıtlı araçlar ile şase, podye veya airbag işlemi görmüş, yapısal bütünlüğü bozulmuş araçlar veri setinden çıkarılmıştır[cite: 1].
+2. **Zaman Filtresi:** Modelin güncel piyasa dinamiklerini yakalaması adına 2010 model yılı öncesi araçlar analiz dışı bırakılmıştır[cite: 1].
+3. **Yıllık Kullanım Yoğunluğu (km_per_age):** Toplam kilometre bilgisi, aracın yaşına bölünerek yıllık ortalama yıpranma katsayısı türetilmiş ve modele güçlü bir öngörücü olarak eklenmiştir[cite: 1].
 
 ---
 
 ### 📊 Model Performansı ve İstatistiksel Metrikler
 
-Optuna çerçevesi kullanılarak gerçekleştirilen Bayesyen hiperparametre optimizasyonu sonucunda test setinde elde edilen performans metrikleri aşağıdadır:
+Optuna çerçevesi kullanılarak gerçekleştirilen Bayesyen hiperparametre optimizasyonu sonucunda test setinde elde edilen performans metrikleri aşağıdadır[cite: 1]:
 
-| Değerlendirme Metriği | Matematiksel Formül | Model Çıktısı (Test Seti) |
+| Değerlendirme Metriği | Matematiksel Gösterim | Model Çıktısı (Test Seti) |
 | :--- | :--- | :--- |
-| **$R^2$ (Determinasyon Katsayısı)** | $$R^2 = 1 - \frac{\sum(y_i - \hat{y}_i)^2}{\sum(y_i - \bar{y})^2}$$ | **0.9708** |
-| **MAE (Ortalama Mutlak Hata)** | $$MAE = \frac{1}{n}\sum_{i=1}^{n}\lvert y_i - \hat{y}_i \rvert$$ | **129,973 TL** |
-| **RMSE (Kök Ortalama Kare Hata)** | $$RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2}$$ | **181,508 TL** |
+| **R² (Determinasyon Katsayısı)** | R² = 1 - [ ∑(y_i - ŷ_i)² / ∑(y_i - ȳ)² ] | **0.9708**[cite: 1] |
+| **MAE (Ortalama Mutlak Hata)** | MAE = (1/n) * ∑ \|y_i - ŷ_i\| | **129,973 TL**[cite: 1] |
+| **RMSE (Kök Ortalama Kare Hata)** | RMSE = √ [ (1/n) * ∑(y_i - ŷ_i)² ] | **181,508 TL**[cite: 1] |
 
-> **İstatistiksel Çıkarım:** $R^2 = 0.9708$ değeri, premium ikinci el araç fiyatlarında görülen varyansın **%97.08**'inin modelde yer alan bağımsız değişkenler tarafından açıklandığını göstermektedir. Residual Histogram ve Q-Q Plot analizleri, tahmin hatalarının ($\epsilon_i = y_i - \hat{y}_i$) sıfır ortalamalı normal dağılum varsayımına büyük ölçüde uyduğunu doğrulamıştır. SHAP (SHapley Additive exPlanations) analizleri ise fiyatı belirleyen en baskın faktörlerin *Motor Gücü (HP)* ve *Model Prestiji (Segment/Varyant)* olduğunu ortaya koymuştur.
+> **📊 İstatistiksel Çıkarım:** R² = 0.9708 değeri, premium ikinci el araç fiyatlarında görülen varyansın **%97.08**'inin modelde yer alan bağımsız değişkenler tarafından açıklandığını göstermektedir[cite: 1]. Residual Histogram ve Q-Q Plot analizleri, tahmin hatalarının (e_i = y_i - ŷ_i) sıfır ortalamalı normal dağılım varsayımına büyük ölçüde uyduğunu doğrulamıştır[cite: 1]. SHAP (SHapley Additive exPlanations) analizleri ise fiyatı belirleyen en baskın faktörlerin *Motor Gücü (HP)* ve *Model Prestiji (Segment/Varyant)* olduğunu ortaya koymuştur[cite: 1].
 
 ---
 
@@ -132,16 +134,24 @@ Sistem, harici kurumsal yazılımların (CRM, ERP, Galeri Yönetim Sistemleri) e
 
 ```
 
-*Not: Alt ve üst sınırlar, modelin MAE (±129,973 TL) sapma payı ve donanım paket farklılıkları göz önünde bulundurularak dinamik olarak hesaplanır.*
+Not: Alt ve üst sınırlar, modelin MAE (±129,973 TL) sapma payı ve donanım paket farklılıkları göz önünde bulundurularak dinamik olarak hesaplanır.
 
 ---
 
 ### 🎓 Proje Künyesi ve Teşekkür
 
 * **Araştırmacı:** Ferhat Koç (2211317016)
+
+
 * **Akademik Danışman:** Prof. Dr. Ulaş YAMANCI
+
+
 * **Kurum:** Süleyman Demirel Üniversitesi, Mühendislik ve Doğa Bilimleri Fakültesi, İstatistik Bölümü
+
+
 * **Lisans:** MIT License
+
+
 
 ```
 
