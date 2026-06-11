@@ -60,6 +60,10 @@ try:
 except Exception as e:
     print("❌ Model yüklenemedi:", e)
 
+# gunicorn ile başlatıldığında da tablo oluşsun
+with app.app_context():
+    db.create_all()
+
 
 # ---------------------------------------------------
 # 🔥 MODELİN BEKLEDİĞİ KOLONLAR
@@ -153,8 +157,12 @@ def predict():
             not_text=data.get("not", "")
         )
 
-        db.session.add(log)
-        db.session.commit()
+        try:
+            db.session.add(log)
+            db.session.commit()
+        except Exception as db_err:
+            db.session.rollback()
+            print("⚠️ DB log hatası:", db_err)
 
         return jsonify({"tahmin": tahmin})
 
