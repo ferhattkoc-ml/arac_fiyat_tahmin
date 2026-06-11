@@ -125,7 +125,7 @@ def predict():
 
         # Ek kolonlar
         data["km_per_age"] = data["kilometre"] / (data["Yas"] + 0.1)
-        data["model_yili"] = 2025 - data["Yas"]
+        data["model_yili"] = 2026 - data["Yas"]
 
         df = pd.DataFrame([data])
         df = df[expected_columns]
