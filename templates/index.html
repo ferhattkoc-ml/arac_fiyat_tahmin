@@ -777,42 +777,41 @@ form.addEventListener("submit", async function (e) {
   }
   markInvalidFields();
 
-  // 🔴 BURASI ÖNEMLİ: MODELİN BEKLEDİĞİ BÜYÜK HARF FORMAT
   const payload = {
-    Model: document.getElementById("model").value.toUpperCase(),
+    Model: document.getElementById("model").value,
 
     Kasa_tipi: {
-      "sedan":     "SEDAN",
-      "hb3":       "HATCHBACK 3 KAPI",
-      "hb5":       "HATCHBACK 5 KAPI",
-      "cabrio":    "CABRIO",
-      "st_wagon":  "STATION WAGON",
-      "coupe":     "COUPE"
+      "sedan":     "Sedan",
+      "hb3":       "Hatchback 3 kapı",
+      "hb5":       "Hatchback 5 kapı",
+      "cabrio":    "Cabrio",
+      "st_wagon":  "Station Wagon",
+      "coupe":     "Coupe"
     }[document.getElementById("kasa").value],
 
     Yakit_tipi: {
-      "benzin": "BENZIN",
-      "dizel":  "DIZEL",
-      "lpg":    "BENZIN & LPG",
-      "hibrit": "HIBRIT"
+      "benzin": "Benzin",
+      "dizel":  "Dizel",
+      "lpg":    "Benzin&Lpg",
+      "hibrit": "Hibrit"
     }[document.getElementById("yakit").value],
 
     Vites: {
-      "otomatik": "OTOMATIK",
-      "manuel":   "MANUEL"
+      "otomatik": "Otomatik",
+      "manuel":   "Manuel"
     }[document.getElementById("vites").value],
 
     Renk: {
-      "beyaz":   "BEYAZ",
-      "siyah":   "SIYAH",
-      "gri":     "GRI",
-      "mavi":    "MAVI",
-      "kirmizi": "KIRMIZI"
+      "beyaz":   "Beyaz",
+      "siyah":   "Siyah",
+      "gri":     "Gri",
+      "mavi":    "Lacivert",
+      "kirmizi": "Kirmizi"
     }[document.getElementById("renk").value],
 
     Kimden: {
-      "g": "GALERIDEN",
-      "s": "SAHIBINDEN"
+      "g": "g",
+      "s": "s"
     }[document.getElementById("kimden").value],
 
     kilometre:   Number(document.getElementById("km").value),
