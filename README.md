@@ -277,3 +277,15 @@ Bu proje **MIT License** ile lisanslanmıştır. Detaylar için [LICENSE](LICENS
 <div align="center">
   <sub>Built with ❤️ by Ferhat Koç · SDÜ İstatistik Bölüm Birincisi 🏆</sub>
 </div>
+
+---
+
+## ⚙️ Yapılandırma
+
+Admin paneli için ortam değişkenleri gerekir (kodda gizli değer tutulmaz):
+
+```bash
+export SECRET_KEY="uzun-rastgele-bir-deger"
+export ADMIN_USER="admin"
+export ADMIN_PASSWORD="guclu-bir-parola"   # tanımlı değilse admin girişi kapalıdır
+```

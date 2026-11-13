@@ -4,12 +4,17 @@ import pandas as pd
 from catboost import CatBoostRegressor
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+import os
+import secrets
+import hmac
 
 app = Flask(__name__)
 CORS(app)
 
-# 🔐 Admin login için secret key
-app.secret_key = "ferhat-super-secret-key-123"
+# 🔐 Admin login: gizli değerler ortam değişkenlerinden okunur (kodda tutulmaz)
+app.secret_key = os.environ.get("SECRET_KEY") or secrets.token_hex(32)
+ADMIN_USER = os.environ.get("ADMIN_USER", "admin")
+ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD")  # tanımlı değilse admin girişi kapalıdır
 
 # ---------------------------------------------------
 # 🔥 VERİTABANI AYARLARI
@@ -100,7 +105,8 @@ def admin_login():
         username = request.form.get("username")
         password = request.form.get("password")
 
-        if username == "admin" and password == "ferhat123":
+        if (ADMIN_PASSWORD and hmac.compare_digest(username or "", ADMIN_USER)
+                and hmac.compare_digest(password or "", ADMIN_PASSWORD)):
             session["admin_logged"] = True
             return redirect("/admin")
 
