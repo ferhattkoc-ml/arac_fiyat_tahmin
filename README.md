@@ -282,7 +282,7 @@ Bu proje **MIT License** ile lisanslanmıştır. Detaylar için [LICENSE](LICENS
 
 ## ⚙️ Yapılandırma
 
-Admin paneli için ortam değişkenleri gerekir (kodda gizli değer tutulmaz):
+Admin paneli için ortam değişkenleri gerekir (kodda gizli değer tutulmaz). Yerelde `.env.example` dosyasını `.env` olarak kopyalayıp doldurun; `.env` git'e eklenmez:
 
 ```bash
 export SECRET_KEY="uzun-rastgele-bir-deger"

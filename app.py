@@ -8,6 +8,12 @@ import os
 import secrets
 import hmac
 
+try:  # yerelde .env dosyasını yükle (kuruluysa)
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
+
 app = Flask(__name__)
 CORS(app)
 
